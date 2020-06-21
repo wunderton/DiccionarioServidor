@@ -19,9 +19,10 @@ import java.io.ObjectOutputStream;
  * @author anton
  */
 
-public class Protocolo {
+public class Protocolo{
     ArrayList<String> dividido = new ArrayList<String>();
-    ArrayList<String> diccionario = new ArrayList<String>();;
+    ArrayList<String> diccionario = new ArrayList<String>();
+    
     String theOutput = "Conectado";
     String nombre = null;
     boolean existe = false;
@@ -102,13 +103,8 @@ public class Protocolo {
             if(theInput.contains("ASK_FOR")){
                 System.out.println(theInput);      
                 String busqueda = dividido.get(2);
-                
-                for(int i = 0; i < diccionario.size() && existe == false; i++){
-                    if(busqueda == diccionario.get(i)){
-                        existe = true;
-                    }
-                }
-                if (diccionario.contains(busqueda)) {
+            
+            if (diccionario.contains(busqueda)) {
                     theOutput = "PROTOCOL_PSP_JUNIO#ANSWER_TO#"+busqueda+"#IS#true";
                     System.out.println("\nEl elemento SÍ existe en la lista");
                 } 
@@ -123,7 +119,7 @@ public class Protocolo {
                 theOutput = "PROTOCOL_PSP_JUNIO#OK#"+nombre+"#IWILLALWAISLOVEYOU";
             }
 
-            }  else theOutput = "PROTOCOL_PSP_JUNIO#BAD_MESSAGE";
+            }  else theOutput = "Bienvenido!";
 
     return theOutput;
     } 

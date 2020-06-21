@@ -6,14 +6,13 @@
 package diccionarioservidor;
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 /**
  *
  * @author anton
  */
 
-import java.net.*;
-import java.io.*;
-import java.util.ArrayList;
+
 
 public class KKMultiServerThread extends Thread {
     private Socket socket = null;
