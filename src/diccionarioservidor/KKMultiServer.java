@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class KKMultiServer {
     public static void main(String[] args){
 
-    int portNumber = 4444;
+    int portNumber = 3478;
     boolean listening = true;
     ArrayList<KKMultiServerThread> conexiones = new ArrayList<>();
                  

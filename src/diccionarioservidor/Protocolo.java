@@ -23,7 +23,7 @@ public class Protocolo{
     ArrayList<String> dividido = new ArrayList<String>();
     ArrayList<String> diccionario = new ArrayList<String>();
     
-    String theOutput = "Conectado";
+    String theOutput = "";
     String nombre = null;
     boolean existe = false;
 
@@ -119,7 +119,7 @@ public class Protocolo{
                 theOutput = "PROTOCOL_PSP_JUNIO#OK#"+nombre+"#IWILLALWAISLOVEYOU";
             }
 
-            }  else theOutput = "Bienvenido!";
+            }  //else theOutput = "Bienvenido!";
 
     return theOutput;
     } 

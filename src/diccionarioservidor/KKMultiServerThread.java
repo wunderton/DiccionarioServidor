@@ -28,9 +28,10 @@ public class KKMultiServerThread extends Thread {
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         ) {
+            String buffer = in.readLine();
             String inputLine, outputLine;
             Protocolo kkp = new Protocolo();
-            outputLine = kkp.processInput(" ");
+            outputLine = kkp.processInput(buffer);
             out.println(outputLine);
 
             while ((inputLine = in.readLine()) != null) {
