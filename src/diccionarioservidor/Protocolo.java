@@ -14,6 +14,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author anton
@@ -22,20 +24,13 @@ import java.io.ObjectOutputStream;
 public class Protocolo{
     ArrayList<String> dividido = new ArrayList<String>();
     ArrayList<String> diccionario = new ArrayList<String>();
-    
     String theOutput = "";
     String nombre = null;
     boolean existe = false;
 
-    public void borrarFichero(String nombreFichero) {
-
-        File fichero = new File(nombreFichero);
-        fichero.delete();
-    }
-
-    private void importarDiccionario() throws IOException{
-     File fichero = new File("Diccionario.dat");
-     if(fichero.exists()){
+    public void importarDiccionario() throws IOException{
+        File fichero = new File("Diccionario.dat");
+        if(fichero.exists()){
             try (ObjectInputStream dataIS = new ObjectInputStream(new FileInputStream(fichero))) {
                 int i = 1;
                 try {
@@ -48,26 +43,6 @@ public class Protocolo{
                         System.out.println("FIN DE LECTURA.");
                 }
             }
-        }
-    }
-
-    private void guardarDiccionario(ArrayList<String> diccionario) throws FileNotFoundException, IOException {
-        String nombreFichero = "Diccionario.dat";
-        borrarFichero(nombreFichero);
-        File fichero = new File(nombreFichero);//declara el fichero
-        
-        FileOutputStream fileout = new FileOutputStream(fichero,true);
-        try(ObjectOutputStream dataOS = new ObjectOutputStream(fileout)) {
-            try{
-                dataOS.writeObject(diccionario);
-                dataOS.flush();
-                dataOS.close();
-                
-            } catch (FileNotFoundException f) {
-                System.out.println(f + "Error: El fichero no existe. ");
-            } catch (IOException ioe) {
-                System.out.println(ioe + "Error: Fallo en la escritura en el fichero. ");
-            }    
         }
     }
    
@@ -103,26 +78,23 @@ public class Protocolo{
             if(theInput.contains("ASK_FOR")){
                 System.out.println(theInput);      
                 String busqueda = dividido.get(2);
-            
-            if (diccionario.contains(busqueda)) {
-                    theOutput = "PROTOCOL_PSP_JUNIO#ANSWER_TO#"+busqueda+"#IS#true";
-                    System.out.println("\nEl elemento SÍ existe en la lista");
-                } 
-                else  {
-                    theOutput = "PROTOCOL_PSP_JUNIO#ANSWER_TO#"+busqueda+"#IS#false";
-                    System.out.println("\nEl elemento no existe, pero se ha añadido");
-                    diccionario.add(busqueda);
-                    guardarDiccionario(diccionario);
+                HebraBuscayGuarda buscayguarda = new HebraBuscayGuarda(busqueda, diccionario);
+                try {
+                    buscayguarda.buscayguarda.start();
+                    buscayguarda.buscayguarda.join();
+                    theOutput = buscayguarda.salida;
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(HebraBuscayGuarda.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
-            else if(dividido.contains("GOODBYE_MY_LOVE")){
-                theOutput = "PROTOCOL_PSP_JUNIO#OK#"+nombre+"#IWILLALWAISLOVEYOU";
+            
             }
 
-            }  //else theOutput = "Bienvenido!";
+            }  else if(dividido.contains("GOODBYE_MY_LOVE")){
+                theOutput = "PROTOCOL_PSP_JUNIO#OK#"+nombre+"#IWILLALWAISLOVEYOU";//else theOutput = "Bienvenido!";
 
-    return theOutput;
-    } 
+    
+    } return theOutput;
+}
 }
 
 

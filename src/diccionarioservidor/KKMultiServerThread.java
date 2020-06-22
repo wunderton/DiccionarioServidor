@@ -37,8 +37,8 @@ public class KKMultiServerThread extends Thread {
             while ((inputLine = in.readLine()) != null) {
                 outputLine = protocol.processInput(inputLine);
                 out.println(outputLine);
+            ///socket.close();
             }
-            socket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
