@@ -86,15 +86,13 @@ public class Protocolo{
                 } catch (InterruptedException ex) {
                     Logger.getLogger(HebraBuscayGuarda.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            
             }
 
             }  else if(dividido.contains("GOODBYE_MY_LOVE")){
-                theOutput = "PROTOCOL_PSP_JUNIO#OK#"+nombre+"#IWILLALWAISLOVEYOU";//else theOutput = "Bienvenido!";
+                theOutput = "PROTOCOL_PSP_JUNIO#OK#"+nombre+"#IWILLALWAISLOVEYOU";
 
-    
-    } return theOutput;
-}
+        } return theOutput;
+    }
 }
 
 
