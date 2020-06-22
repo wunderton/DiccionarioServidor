@@ -30,12 +30,12 @@ public class KKMultiServerThread extends Thread {
         ) {
             String buffer = in.readLine();
             String inputLine, outputLine;
-            Protocolo kkp = new Protocolo();
-            outputLine = kkp.processInput(buffer);
+            Protocolo protocol = new Protocolo();
+            outputLine = protocol.processInput(buffer);
             out.println(outputLine);
 
             while ((inputLine = in.readLine()) != null) {
-                outputLine = kkp.processInput(inputLine);
+                outputLine = protocol.processInput(inputLine);
                 out.println(outputLine);
             }
             socket.close();
